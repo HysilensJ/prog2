@@ -77,7 +77,7 @@ function loadTriangles(imageType) {
       var inputTriangles = getJSONFile(NEW_INPUT_TRIANGLES_URL,"triangles");
     }
     else {
-      var inputTriangles = getJSONFile(INPUT_TRIANGLES_URL,"triangles");
+      var inputTriangles = getJSONFile(NEW_INPUT_TRIANGLES_URL,"triangles");
     }
     if (inputTriangles != String.null) { 
         var whichSetVert; // index of vertex in current triangle set
@@ -214,13 +214,11 @@ function renderTriangles() {
     gl.bindBuffer(gl.ARRAY_BUFFER,vertexBuffer); // activate
     gl.vertexAttribPointer(vertexPositionAttrib,3,gl.FLOAT,false,0,0); // feed
 
-    gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
+    gl.bindBuffer(gl.ARRAY_BUFFER,colorBuffer);
     gl.vertexAttribPointer(vertexColorAttrib,3,gl.FLOAT,false,0,0);
 
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,triangleBuffer);
     gl.drawElements(gl.TRIANGLES,triBufferSize,gl.UNSIGNED_SHORT,0);
-
-    
 
     //gl.drawArrays(gl.TRIANGLES,0,3); // render
 } // end render triangles
@@ -231,15 +229,13 @@ function renderTriangles() {
 function main() {
   
   setupWebGL(); // set up the webGL environment
-  loadTriangles(); // load in the triangles from tri file
+  loadTriangles(0); // load in the triangles from tri file
   setupShaders(); // setup the webGL shaders
   renderTriangles(); // draw the triangles using webGL
 
   document.addEventListener('keydown', (event) => {
       if (event.code == "Space" ) {
-        setupWebGL(); // set up the webGL environment
-        loadTriangles(); // load in the triangles from tri file
-        setupShaders(); // setup the webGL shaders
+        loadTriangles(1); // load in the triangles from tri file
         renderTriangles(); // draw the triangles using webGL
       }
   }); 
