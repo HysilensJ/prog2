@@ -77,7 +77,7 @@ function loadTriangles(imageType) {
       var inputTriangles = getJSONFile(NEW_INPUT_TRIANGLES_URL,"triangles");
     }
     else {
-      var inputTriangles = getJSONFile(NEW_INPUT_TRIANGLES_URL,"triangles");
+      var inputTriangles = getJSONFile(INPUT_TRIANGLES_URL,"triangles");
     }
     if (inputTriangles != String.null) { 
         var whichSetVert; // index of vertex in current triangle set
@@ -89,6 +89,7 @@ function loadTriangles(imageType) {
         var vtxToAdd = [];
         var indexOffset = vec3.create();
         var triToAdd = vec3.create();
+        triBufferSize = 0;
         
         for (var whichSet=0; whichSet<inputTriangles.length; whichSet++) {
             vec3.set(indexOffset,vtxBufferSize,vtxBufferSize,vtxBufferSize);
