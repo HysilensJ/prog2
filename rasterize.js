@@ -236,6 +236,7 @@ function main() {
   document.addEventListener('keydown', (event) => {
       if (event.code == "Space" ) {
         loadTriangles(1); // load in the triangles from tri file
+        setupShaders(); // setup the webGL shaders
         renderTriangles(); // draw the triangles using webGL
       }
   }); 
