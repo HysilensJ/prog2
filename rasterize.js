@@ -5,6 +5,7 @@ const WIN_Z = 0;  // default graphics window z coord in world space
 const WIN_LEFT = 0; const WIN_RIGHT = 1;  // default left and right x coords in world space
 const WIN_BOTTOM = 0; const WIN_TOP = 1;  // default top and bottom y coords in world space
 const INPUT_TRIANGLES_URL = "https://ncsucgclass.github.io/prog2/triangles.json"; // triangles file loc
+const NEW_INPUT_TRIANGLES_URL = "https://hysilensj.github.io/prog2/triangles.json"; // triangles file loc
 const INPUT_SPHERES_URL = "https://ncsucgclass.github.io/prog2/spheres.json"; // spheres file loc
 var Eye = new vec4.fromValues(0.5,0.5,-0.5,1.0); // default eye position in world space
 
@@ -70,8 +71,14 @@ function setupWebGL() {
 } // end setupWebGL
 
 // read triangles in, load them into webgl buffers
-function loadTriangles() {
-    var inputTriangles = getJSONFile(INPUT_TRIANGLES_URL,"triangles");
+function loadTriangles(imageType) {
+    var inputTriangles;
+    if (imageType == 1) {
+      var inputTriangles = getJSONFile(NEW_INPUT_TRIANGLES_URL,"triangles");
+    }
+    else {
+      var inputTriangles = getJSONFile(INPUT_TRIANGLES_URL,"triangles");
+    }
     if (inputTriangles != String.null) { 
         var whichSetVert; // index of vertex in current triangle set
         var whichSetTri; // index of triangle in current triangle set
@@ -227,5 +234,14 @@ function main() {
   loadTriangles(); // load in the triangles from tri file
   setupShaders(); // setup the webGL shaders
   renderTriangles(); // draw the triangles using webGL
+
+  document.addEventListener('keydown', (event) => {
+      if (event.code == "Space" ) {
+        setupWebGL(); // set up the webGL environment
+        loadTriangles(); // load in the triangles from tri file
+        setupShaders(); // setup the webGL shaders
+        renderTriangles(); // draw the triangles using webGL
+      }
+  }); 
   
 } // end main
